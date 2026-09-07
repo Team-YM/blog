@@ -1858,10 +1858,77 @@
             }
         }
 
+        // ========== 8. 日式赛博和风：樱花纷飞物理粒子引擎 ==========
+        const sakuraCanvas = document.getElementById('sakura-canvas');
+        const sCtx = sakuraCanvas.getContext('2d');
+
+        function resizeSakura() {
+            sakuraCanvas.width = window.innerWidth;
+            sakuraCanvas.height = window.innerHeight;
+        }
+        resizeSakura();
+        window.addEventListener('resize', resizeSakura);
+
+        const petals = [];
+        const petalCount = 38;
+
+        for (let i = 0; i < petalCount; i++) {
+            petals.push({
+                x: Math.random() * window.innerWidth,
+                y: Math.random() * window.innerHeight,
+                size: Math.random() * 7 + 6,
+                speedX: Math.random() * 1.5 - 0.2,
+                speedY: Math.random() * 1.2 + 0.8,
+                rotation: Math.random() * Math.PI * 2,
+                rotSpeed: (Math.random() - 0.5) * 0.03,
+                flip: Math.random(),
+                flipSpeed: Math.random() * 0.03 + 0.01,
+                color: Math.random() > 0.3 ? 'rgba(255, 183, 197, 0.65)' : 'rgba(255, 105, 180, 0.75)'
+            });
+        }
+
+        function drawSakura() {
+            sCtx.clearRect(0, 0, sakuraCanvas.width, sakuraCanvas.height);
+
+            for (let i = 0; i < petals.length; i++) {
+                const p = petals[i];
+                p.x += p.speedX;
+                p.y += p.speedY;
+                p.rotation += p.rotSpeed;
+                p.flip += p.flipSpeed;
+
+                // 飘出边界重置
+                if (p.y > sakuraCanvas.height + 20) {
+                    p.y = -20;
+                    p.x = Math.random() * sakuraCanvas.width;
+                }
+                if (p.x > sakuraCanvas.width + 20) {
+                    p.x = -20;
+                }
+
+                sCtx.save();
+                sCtx.translate(p.x, p.y);
+                sCtx.rotate(p.rotation);
+                sCtx.scale(1, Math.sin(p.flip));
+
+                // 绘制精致单瓣樱花花瓣几何形
+                sCtx.beginPath();
+                sCtx.moveTo(0, 0);
+                sCtx.bezierCurveTo(-p.size / 2, -p.size / 2, -p.size, p.size / 3, 0, p.size);
+                sCtx.bezierCurveTo(p.size, p.size / 3, p.size / 2, -p.size / 2, 0, 0);
+                sCtx.fillStyle = p.color;
+                sCtx.shadowColor = 'rgba(255, 105, 180, 0.4)';
+                sCtx.shadowBlur = 6;
+                sCtx.fill();
+                sCtx.restore();
+            }
+        }
+
         // 统一循环渲染
         function mainLoop() {
             drawMatrix();
             drawParticles();
+            drawSakura();
             try {
                 updateThreeBody();
             } catch (err) {
