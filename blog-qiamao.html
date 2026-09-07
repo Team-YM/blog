@@ -666,32 +666,199 @@
             margin: 0 auto;
         }
 
-        /* 页面主体架构容器 */
+        /* 页面主体架构容器 - 外层设定为日式幽玄神社神域 */
         .mask {
             position: relative;
             z-index: 10;
             width: 100%;
             min-height: 100vh;
-            padding: 75px 20px 50px;
+            padding: 95px 20px 65px;
             display: flex;
             justify-content: center;
             align-items: center;
+        }
+
+        /* 神社结界与外层宏伟鸟居构架 (Shrine Torii & Barrier Space) */
+        .shrine-outer-space {
+            position: relative;
+            width: 100%;
+            max-width: 1040px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* 宏伟朱红赛博鸟居外框架构 */
+        .shrine-torii-frame {
+            position: absolute;
+            inset: -45px -32px -35px;
+            pointer-events: none;
+            z-index: 1;
+            border-radius: 36px;
+        }
+
+        /* 鸟居顶梁 (笠木 & 岛木 Kasagi & Shimaki) */
+        .torii-top-beam {
+            position: absolute;
+            top: -24px;
+            left: -40px;
+            right: -40px;
+            height: 16px;
+            background: linear-gradient(90deg, #3a0007, #c1121f, #ff2a8d, #c1121f, #3a0007);
+            border-radius: 8px 8px 3px 3px;
+            box-shadow: 0 0 25px rgba(255, 42, 141, 0.7), 0 4px 15px rgba(0, 0, 0, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        /* 鸟居微翘飞檐角 */
+        .torii-top-beam::before, .torii-top-beam::after {
+            content: '';
+            position: absolute;
+            top: -6px;
+            width: 32px;
+            height: 12px;
+            background: #ff2a8d;
+            box-shadow: 0 0 12px #ff2a8d;
+        }
+        .torii-top-beam::before { left: -14px; transform: rotate(-18deg); border-radius: 4px 0 0 0; }
+        .torii-top-beam::after { right: -14px; transform: rotate(18deg); border-radius: 0 4px 0 0; }
+
+        /* 鸟居额束 (匾额扁额：有馬神社 / 神域) */
+        .torii-plaque {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #0f0814;
+            border: 2px solid #ffd700;
+            color: #ffd700;
+            padding: 4px 16px;
+            font-size: 13px;
+            font-weight: bold;
+            letter-spacing: 4px;
+            border-radius: 4px;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.5), inset 0 0 8px rgba(255, 215, 0, 0.3);
+            text-shadow: 0 0 6px #ffd700;
+            z-index: 3;
+            white-space: nowrap;
+        }
+
+        /* 鸟居次梁 (贯 Nuki) */
+        .torii-sub-beam {
+            position: absolute;
+            top: 20px;
+            left: -20px;
+            right: -20px;
+            height: 8px;
+            background: linear-gradient(90deg, #47040a, #e63946, #47040a);
+            box-shadow: 0 0 15px rgba(230, 57, 70, 0.45);
+        }
+
+        /* 鸟居左右朱红立柱 (Hashira) */
+        .torii-pillar-left, .torii-pillar-right {
+            position: absolute;
+            top: -10px;
+            bottom: -20px;
+            width: 14px;
+            background: linear-gradient(to bottom, #ff2a8d, #c1121f 30%, #780000 85%, #1b0a10);
+            box-shadow: 0 0 20px rgba(255, 42, 141, 0.4), inset 0 0 6px rgba(0, 0, 0, 0.6);
+            border-radius: 4px;
+        }
+        .torii-pillar-left { left: -10px; }
+        .torii-pillar-right { right: -10px; }
+
+        /* 神社注连绳 (Shimenawa) 挂于卡片正上方 */
+        .shrine-rope {
+            position: absolute;
+            top: 36px;
+            left: 5%;
+            right: 5%;
+            height: 12px;
+            background: repeating-linear-gradient(45deg, #c7a760, #e8d595 10px, #a88942 12px);
+            border-radius: 6px;
+            box-shadow: 0 0 14px rgba(232, 213, 149, 0.4);
+            z-index: 2;
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-start;
+        }
+        /* 注连绳垂下的四方白折纸神符 (Shide 纸垂) */
+        .shrine-shide {
+            width: 14px;
+            height: 32px;
+            background: #ffffff;
+            clip-path: polygon(0 0, 100% 15%, 40% 40%, 100% 65%, 0 100%, 30% 60%, 0 35%);
+            filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.8));
+            animation: shide-swing 3s ease-in-out infinite alternate;
+            transform-origin: top center;
+        }
+        .shrine-shide:nth-child(2) { animation-delay: 0.7s; }
+        .shrine-shide:nth-child(3) { animation-delay: 1.4s; }
+        .shrine-shide:nth-child(4) { animation-delay: 2.1s; }
+
+        @keyframes shide-swing {
+            0% { transform: rotate(-8deg); }
+            100% { transform: rotate(8deg); }
+        }
+
+        /* 神社两旁常夜灯 / 石灯笼 (Tōrō 赛博石灯笼) */
+        .shrine-lantern-left, .shrine-lantern-right {
+            position: absolute;
+            top: 15%;
+            width: 32px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 3;
+            pointer-events: none;
+        }
+        .shrine-lantern-left { left: -60px; }
+        .shrine-lantern-right { right: -60px; }
+
+        .lantern-roof {
+            width: 36px;
+            height: 8px;
+            background: #2b2533;
+            border-radius: 4px 4px 1px 1px;
+            border-bottom: 2px solid #ff2a8d;
+        }
+        .lantern-fire {
+            width: 22px;
+            height: 28px;
+            background: radial-gradient(circle, #ffe600, #ff5400 65%, transparent 90%);
+            border: 1px solid rgba(255, 230, 0, 0.6);
+            border-radius: 4px;
+            box-shadow: 0 0 20px #ffe600, inset 0 0 8px #ff5400;
+            animation: lantern-flicker 2.5s infinite alternate;
+        }
+        @keyframes lantern-flicker {
+            0%, 100% { opacity: 1; transform: scale(1); filter: drop-shadow(0 0 8px #ffe600); }
+            45% { opacity: 0.82; transform: scale(0.96); }
+            80% { opacity: 0.95; }
+        }
+        .lantern-stand {
+            width: 8px;
+            height: 48px;
+            background: linear-gradient(to bottom, #393043, #1a1622);
+            border-radius: 2px;
         }
 
         .blog-container {
             max-width: 940px;
             width: 100%;
             background: var(--bg-glass);
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
+            backdrop-filter: blur(26px);
+            -webkit-backdrop-filter: blur(26px);
             border-radius: 28px;
-            padding: 50px 48px;
+            padding: 56px 48px;
             border: 1px solid var(--border-glass);
-            box-shadow: 0 0 45px rgba(0, 0, 0, 0.65), 0 0 35px rgba(255, 42, 141, 0.18), inset 0 0 25px rgba(0, 243, 255, 0.08);
+            box-shadow: 0 0 55px rgba(0, 0, 0, 0.75), 0 0 40px rgba(255, 42, 141, 0.22), inset 0 0 25px rgba(0, 243, 255, 0.1);
             position: relative;
             transform-style: preserve-3d;
             perspective: 1200px;
             transition: transform 0.22s ease-out, box-shadow 0.3s;
+            z-index: 2;
         }
 
         /* 赛博装饰角标 */
@@ -1397,6 +1564,11 @@
         <div class="torii-icon">⛩️</div>
         <div class="wa-kamon-stamp">電脳桜花</div>
         <div class="wa-tanzaku">電脳幽幻神域</div>
+        <!-- 能面招牌 -->
+        <div class="cyber-noh-mask">
+            <span class="noh-emoji">👺</span>
+            <span class="noh-text">能面・天狗</span>
+        </div>
         <span>CYBER_EDO_NET</span>
     </div>
 
@@ -1404,7 +1576,16 @@
     <div class="cyber-wa-omamori">
         <div class="omamori-tag">💮 恋愛成就 // BUG無敵</div>
         <div class="omamori-tag">🛡️ 御守・有馬加奈</div>
+        <!-- 市松人形守护神符 -->
+        <div class="ichimatsu-doll-tag">🎎 市松人形・霊魂</div>
         <span>AMULET_PROTECT</span>
+    </div>
+
+    <!-- 新宿歌舞伎町 / 涩谷极客赛博霓虹招牌灯带 -->
+    <div class="tokyo-neon-strip">
+        <div class="neon-sign pink">歌舞伎町</div>
+        <div class="neon-sign cyan">電脳神社</div>
+        <div class="neon-sign yellow">能楽舞台</div>
     </div>
 
     <!-- 自定义高能准星光标 -->
@@ -1433,9 +1614,41 @@
         </div>
     </div>
 
-    <!-- 页面核心容器 -->
+    <!-- 页面核心容器 (外层为日式宏伟神社神域结构) -->
     <div class="mask">
-        <div class="blog-container" id="interactive-card">
+        <div class="shrine-outer-space">
+            <!-- 外部宏伟神社鸟居框架 -->
+            <div class="shrine-torii-frame">
+                <!-- 顶梁笠木与微翘飞檐 -->
+                <div class="torii-top-beam"></div>
+                <!-- 鸟居正中金字神额 -->
+                <div class="torii-plaque">⛩️ 有馬神社 // 結界</div>
+                <!-- 次梁贯 -->
+                <div class="torii-sub-beam"></div>
+                <!-- 左右朱红柱廊 -->
+                <div class="torii-pillar-left"></div>
+                <div class="torii-pillar-right"></div>
+                <!-- 注连绳与御币纸垂 -->
+                <div class="shrine-rope">
+                    <div class="shrine-shide"></div>
+                    <div class="shrine-shide"></div>
+                    <div class="shrine-shide"></div>
+                    <div class="shrine-shide"></div>
+                </div>
+                <!-- 左右赛博常夜石灯笼 -->
+                <div class="shrine-lantern-left">
+                    <div class="lantern-roof"></div>
+                    <div class="lantern-fire"></div>
+                    <div class="lantern-stand"></div>
+                </div>
+                <div class="shrine-lantern-right">
+                    <div class="lantern-roof"></div>
+                    <div class="lantern-fire"></div>
+                    <div class="lantern-stand"></div>
+                </div>
+            </div>
+
+            <div class="blog-container" id="interactive-card">
             <!-- 头像 & 昵称 & 签名 -->
             <div class="avatar-box">
                 <div class="avatar-wrapper">
@@ -1545,6 +1758,52 @@
                 </div>
             </div>
 
+            <!-- 日式传统美学与赛博朋克文化融合特写 (神社・能乐・市松人形・霓虹极客) -->
+            <div class="site-section">
+                <h3 class="intro-title">
+                    <div class="title-left"><span class="prefix">#</span>和风幽玄・文化结界</div>
+                    <span class="title-jp">和様美学 // CYBER_SHRINE</span>
+                </h3>
+                <div class="wa-culture-grid">
+                    <!-- 神社电报 -->
+                    <div class="wa-culture-card">
+                        <div class="wa-card-header">
+                            <span class="wa-card-icon">⛩️</span>
+                            <span class="wa-card-tag">SHRINE // 結界</span>
+                        </div>
+                        <div class="wa-card-title">電脳神社 <span>Jinja Matrix</span></div>
+                        <p class="wa-card-desc">以赛博鸟居作为虚实之界，红漆柱廊映射在数据雨中，封印着无数系统异常与灵性代码。</p>
+                    </div>
+                    <!-- 能剧般若 -->
+                    <div class="wa-culture-card">
+                        <div class="wa-card-header">
+                            <span class="wa-card-icon">👺</span>
+                            <span class="wa-card-tag">NOH // 能楽</span>
+                        </div>
+                        <div class="wa-card-title">幽玄能面 <span>Noh Mask</span></div>
+                        <p class="wa-card-desc">喜怒不形于色的古老面具，在霓虹阴极灯下投下深深的阴翳，演绎着数字深渊的爱恨贪嗔。</p>
+                    </div>
+                    <!-- 市松人形 -->
+                    <div class="wa-culture-card">
+                        <div class="wa-card-header">
+                            <span class="wa-card-icon">🎎</span>
+                            <span class="wa-card-tag">DOLL // 市松</span>
+                        </div>
+                        <div class="wa-card-title">市松人形 <span>Ichimatsu</span></div>
+                        <p class="wa-card-desc">精工绫罗与瓷白肌肤下的永恒凝视，市松格纹流转着浮世绘与量子比特交织的古朴灵魂。</p>
+                    </div>
+                    <!-- 新宿霓虹 -->
+                    <div class="wa-culture-card">
+                        <div class="wa-card-header">
+                            <span class="wa-card-icon">🏮</span>
+                            <span class="wa-card-tag">NEON // 歓楽街</span>
+                        </div>
+                        <div class="wa-card-title">霓虹不夜城 <span>Tokyo Cyber</span></div>
+                        <p class="wa-card-desc">歌舞伎町的雨夜高饱和红蓝光晕，雨水倒映着电子广告牌与和风町家灯笼的梦幻交叠。</p>
+                    </div>
+                </div>
+            </div>
+
             <!-- 实时运算三体引力轨道动力学模型 (半简约极客风) -->
             <div class="three-body-box">
                 <div class="three-body-header">
@@ -1587,6 +1846,7 @@
             </div>
         </div>
     </div>
+</div>
 
     <!-- 高阶交互与特效引擎 -->
     <script>
