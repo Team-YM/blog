@@ -293,6 +293,55 @@
             width: 0%;
         }
 
+        /* 日式和风落樱飘零 Canvas */
+        #sakura-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 3;
+        }
+
+        /* 侧边日式鸟居 & 家纹和风微光挂件 */
+        .cyber-wa-torii {
+            position: fixed;
+            right: 22px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            z-index: 90;
+            pointer-events: none;
+            font-size: 11px;
+            color: rgba(255, 105, 180, 0.75);
+            letter-spacing: 3px;
+            writing-mode: vertical-rl;
+            text-shadow: 0 0 10px rgba(255, 105, 180, 0.6);
+        }
+        .torii-icon {
+            font-size: 22px;
+            writing-mode: horizontal-tb;
+            color: var(--neon-pink);
+            filter: drop-shadow(0 0 8px var(--neon-pink));
+            animation: torii-float 3s ease-in-out infinite alternate;
+        }
+        @keyframes torii-float {
+            0% { transform: translateY(-3px); }
+            100% { transform: translateY(3px); }
+        }
+        .wa-kamon-stamp {
+            border: 1px solid rgba(255, 105, 180, 0.5);
+            padding: 10px 4px;
+            border-radius: 4px;
+            background: rgba(255, 42, 141, 0.08);
+            font-size: 11px;
+            letter-spacing: 4px;
+        }
+
         @keyframes laser-gradient {
             0% { background-position: 0% 0%; }
             100% { background-position: 300% 0%; }
@@ -592,6 +641,29 @@
             letter-spacing: 2px;
             text-shadow: 0 0 8px rgba(0, 243, 255, 0.5);
             font-weight: 500;
+        }
+
+        /* 日式和风角标与传统雷纹浮水印 */
+        .wa-banner {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 12px;
+            font-size: 12px;
+            color: rgba(255, 182, 193, 0.85);
+            letter-spacing: 3px;
+        }
+        .wa-crest-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 2px 10px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 105, 180, 0.4);
+            background: rgba(255, 105, 180, 0.08);
+            box-shadow: 0 0 10px rgba(255, 105, 180, 0.2);
+            font-size: 11px;
         }
 
         /* 激光流光分割线 */
