@@ -56,22 +56,27 @@
         /* 黑客/BIOS 自检终端输出流窗口 */
         .bios-console-overlay {
             position: absolute;
-            top: 24px;
-            left: 28px;
+            top: 20px;
+            left: 24px;
             font-family: 'Consolas', monospace;
-            font-size: 11.5px;
-            line-height: 1.5;
-            color: rgba(0, 243, 255, 0.7);
-            text-shadow: 0 0 5px rgba(0, 243, 255, 0.5);
+            font-size: 11px;
+            line-height: 1.45;
+            color: rgba(0, 243, 255, 0.75);
+            text-shadow: 0 0 6px rgba(0, 243, 255, 0.5);
             pointer-events: none;
-            max-width: 480px;
+            max-width: 520px;
+            max-height: 380px;
+            overflow: hidden;
             text-align: left;
             z-index: 5;
+            mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 75%, rgba(0,0,0,0) 100%);
+            -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 75%, rgba(0,0,0,0) 100%);
         }
         .bios-line {
             opacity: 0;
             transform: translateX(-10px);
-            animation: bios-fade-in 0.25s forwards ease-out;
+            animation: bios-fade-in 0.15s forwards ease-out;
+            white-space: nowrap;
         }
         .bios-line.ok span {
             color: var(--neon-lime);
@@ -81,8 +86,38 @@
             color: var(--neon-yellow);
             font-weight: bold;
         }
+        .bios-line.err span {
+            color: var(--neon-pink);
+            font-weight: bold;
+        }
         @keyframes bios-fade-in {
             to { opacity: 1; transform: translateX(0); }
+        }
+
+        /* 右侧悬浮系统硬件遥测雷达小挂件 */
+        .boot-system-widget {
+            position: absolute;
+            top: 60px;
+            right: 28px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            font-family: 'Consolas', monospace;
+            font-size: 10px;
+            color: rgba(255, 255, 255, 0.35);
+            pointer-events: none;
+            text-align: right;
+            z-index: 5;
+        }
+        .boot-widget-box {
+            background: rgba(0, 243, 255, 0.03);
+            border: 1px solid rgba(0, 243, 255, 0.15);
+            padding: 8px 12px;
+            border-radius: 6px;
+        }
+        .boot-widget-box .val {
+            color: var(--neon-cyan);
+            font-weight: bold;
         }
 
         /* 顶部/底部开机科技雷达刻度线 */
@@ -992,7 +1027,7 @@
     <div id="win11-boot-screen">
         <!-- 极客 BIOS / 内核诊断自检代码流 -->
         <div class="bios-console-overlay" id="bios-console">
-            <!-- 由 JS 动态注入高逼格日志 -->
+            <!-- 由 JS 动态注入海量日志 -->
         </div>
 
         <div class="boot-corner-decor top-right">
@@ -1002,6 +1037,22 @@
         <div class="boot-corner-decor bottom-left">
             <span>SYS_ARCH: X86_64_NEURAL</span><br>
             <span>BUILD: 26100.GE_RELEASE</span>
+        </div>
+
+        <!-- 右上角极客硬件实时探测挂件 -->
+        <div class="boot-system-widget">
+            <div class="boot-widget-box">
+                <div>CORE FREQ: <span class="val">5.80 GHz</span></div>
+                <div>L3 CACHE: <span class="val">96 MB 3D V-CACHE</span></div>
+            </div>
+            <div class="boot-widget-box">
+                <div>MEMORY: <span class="val">DDR5 6400 MT/s</span></div>
+                <div>LATENCY: <span class="val">12.4 ns</span></div>
+            </div>
+            <div class="boot-widget-box">
+                <div>NEURAL ENGINE: <span class="val">NPU ACTIVE</span></div>
+                <div>HASH: <span class="val">SHA3-512 VERIFIED</span></div>
+            </div>
         </div>
 
         <!-- 蓝窗 Logo -->
@@ -1225,16 +1276,26 @@
         const progFill = document.getElementById('boot-progress-fill');
         const progNum = document.getElementById('boot-progress-num');
 
-        // 左上角装高手极客自检 BIOS 代码流
+        // 左上角装高手极客自检 BIOS 海量代码流
         const biosLogs = [
-            { text: ">> UEFI FIRMWARE INIT: OK", cls: "ok", delay: 100 },
-            { text: ">> CPU: QUANTUM TENSOR CORE @ 8.20 GHz", cls: "", delay: 350 },
-            { text: ">> TPM 2.0 PCR ENCRYPTION VALIDATED", cls: "ok", delay: 650 },
-            { text: ">> ALLOCATING 64GB DDR5 ECC VIRTUAL HEAP...", cls: "", delay: 950 },
-            { text: ">> [KERNEL] PCI-E LANE 0x00F83: ATTACHED", cls: "", delay: 1300 },
-            { text: ">> BYPASSING FIREWALL... STATUS [GRANTED]", cls: "warn", delay: 1700 },
-            { text: ">> DWM COMPOSITOR: HARDWARE ACCEL ON", cls: "ok", delay: 2100 },
-            { text: ">> LAUNCHING SHELL: QIAMAO NEURAL DESKTOP", cls: "ok", delay: 2500 }
+            { text: ">> [UEFI] INITIALIZING PLATFORM HARDWARE...", cls: "ok", delay: 40 },
+            { text: ">> [CPU] QUANTUM TENSOR MATRIX DETECTED: 64 CORES @ 5.80GHz", cls: "ok", delay: 140 },
+            { text: ">> [MEM] 64576 MB RAM OK (QUAD-CHANNEL DDR5-6400 ECC)", cls: "", delay: 240 },
+            { text: ">> [ACPI] RSDP FOUND AT 0x000F6810 - REVISION 2.0", cls: "", delay: 360 },
+            { text: ">> [SECURE] TPM 2.0 CRYPTO PROCESSOR READY - PLATFORM SECURED", cls: "ok", delay: 500 },
+            { text: ">> [IO] BUS 0x00 DEV 0x14 FUNC 0: XHCI CONTROLLER ATTACHED", cls: "", delay: 650 },
+            { text: ">> [NVME] M.2 GEN5 4TB ARRAY AT 14500 MB/s READ/WRITE", cls: "ok", delay: 800 },
+            { text: ">> [NET] 100GbE FIBER INTERFACE PHY_LINK_UP (DUPLEX FULL)", cls: "ok", delay: 960 },
+            { text: ">> [SECURITY] PARSING RUNTIME CERTIFICATE REVOCATION LIST...", cls: "", delay: 1120 },
+            { text: ">> [KERNEL] LOADING /EFI/QIAMAO/VMLINUZ-6.8-CYBER-NEURAL...", cls: "", delay: 1280 },
+            { text: ">> [GPU] VULKAN 1.3 RAYTRACING PIPELINE INITIALIZED", cls: "ok", delay: 1450 },
+            { text: ">> [AUTH] RSA-4096 / ED25519 SYMMETRIC HANDSHAKE ESTABLISHED", cls: "ok", delay: 1620 },
+            { text: ">> [DAEMON] STARTING QUANTUM ENTANGLEMENT ROUTER [OK]", cls: "ok", delay: 1800 },
+            { text: ">> [FIREWALL] APPLIANCE OVERRIDE: BYPASS ACTIVE [ROOT PRIVILEGE]", cls: "warn", delay: 1980 },
+            { text: ">> [MEM_ALLOC] MMAP VIRTUAL BUFFER 0x7FFF0000 -> STABLE", cls: "", delay: 2150 },
+            { text: ">> [AI_CORE] NEURAL SYNAPSE ACCELERATOR READY (1420 TOPS)", cls: "ok", delay: 2320 },
+            { text: ">> [UI] LAUNCHING WIN11 COMPOSITOR & DWM SHELL...", cls: "ok", delay: 2500 },
+            { text: ">> [SYSTEM] ALL SUBSYSTEMS GREEN. WELCOME OPERATOR.", cls: "ok", delay: 2680 }
         ];
 
         biosLogs.forEach(log => {
@@ -1244,6 +1305,7 @@
                 line.className = 'bios-line ' + log.cls;
                 line.innerHTML = log.cls ? `<span>${log.text}</span>` : log.text;
                 biosConsole.appendChild(line);
+                biosConsole.scrollTop = biosConsole.scrollHeight;
             }, log.delay);
         });
 
