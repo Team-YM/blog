@@ -313,7 +313,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             z-index: 90;
             pointer-events: none;
             font-size: 11px;
@@ -323,23 +323,223 @@
             text-shadow: 0 0 10px rgba(255, 105, 180, 0.6);
         }
         .torii-icon {
-            font-size: 22px;
+            font-size: 24px;
             writing-mode: horizontal-tb;
             color: var(--neon-pink);
-            filter: drop-shadow(0 0 8px var(--neon-pink));
+            filter: drop-shadow(0 0 10px var(--neon-pink));
             animation: torii-float 3s ease-in-out infinite alternate;
         }
         @keyframes torii-float {
-            0% { transform: translateY(-3px); }
-            100% { transform: translateY(3px); }
+            0% { transform: translateY(-4px); }
+            100% { transform: translateY(4px); }
         }
         .wa-kamon-stamp {
-            border: 1px solid rgba(255, 105, 180, 0.5);
-            padding: 10px 4px;
+            border: 1px solid rgba(255, 105, 180, 0.6);
+            padding: 12px 6px;
             border-radius: 4px;
-            background: rgba(255, 42, 141, 0.08);
+            background: rgba(255, 42, 141, 0.12);
             font-size: 11px;
+            letter-spacing: 5px;
+            box-shadow: 0 0 12px rgba(255, 42, 141, 0.3);
+        }
+        .wa-tanzaku {
+            border-left: 2px solid rgba(255, 182, 193, 0.6);
+            padding: 10px 4px;
+            color: #ffe4e6;
+            font-size: 10px;
             letter-spacing: 4px;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        /* 日式能面（般若・小面）霓虹招牌挂件 */
+        .cyber-noh-mask {
+            border: 1px solid rgba(255, 42, 141, 0.5);
+            padding: 8px 4px;
+            border-radius: 4px;
+            background: rgba(18, 10, 24, 0.85);
+            box-shadow: 0 0 12px rgba(255, 42, 141, 0.4), inset 0 0 8px rgba(0, 243, 255, 0.2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            writing-mode: horizontal-tb;
+        }
+        .noh-emoji {
+            font-size: 18px;
+            filter: drop-shadow(0 0 6px #ff2a8d);
+            animation: noh-flicker 4s infinite alternate;
+        }
+        @keyframes noh-flicker {
+            0%, 94%, 100% { opacity: 1; filter: drop-shadow(0 0 8px #ff2a8d); }
+            95% { opacity: 0.3; filter: none; }
+            97% { opacity: 0.8; filter: drop-shadow(0 0 4px #00f3ff); }
+        }
+        .noh-text {
+            font-size: 9px;
+            writing-mode: vertical-rl;
+            color: #fce7f3;
+            letter-spacing: 3px;
+        }
+
+        /* 左侧日式御守神符挂件 */
+        .cyber-wa-omamori {
+            position: fixed;
+            left: 18px;
+            top: 55%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            z-index: 90;
+            pointer-events: none;
+            font-size: 10px;
+            color: rgba(255, 230, 0, 0.85);
+            letter-spacing: 3px;
+            writing-mode: vertical-rl;
+            text-shadow: 0 0 8px rgba(255, 230, 0, 0.6);
+        }
+        .omamori-tag {
+            border: 1px dashed rgba(255, 230, 0, 0.5);
+            background: rgba(255, 215, 0, 0.08);
+            padding: 12px 5px;
+            border-radius: 4px;
+            box-shadow: 0 0 10px rgba(255, 230, 0, 0.2);
+        }
+        .ichimatsu-doll-tag {
+            border: 1px solid rgba(0, 243, 255, 0.45);
+            background: rgba(14, 11, 26, 0.88);
+            padding: 10px 5px;
+            border-radius: 4px;
+            color: #a5f3fc;
+            box-shadow: 0 0 12px rgba(0, 243, 255, 0.3);
+            text-shadow: 0 0 6px rgba(0, 243, 255, 0.6);
+        }
+
+        /* 新宿/秋叶原 垂直霓虹招牌灯带 (歌舞伎町极客风) */
+        .tokyo-neon-strip {
+            position: fixed;
+            right: 80px;
+            top: 15%;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            z-index: 85;
+            pointer-events: none;
+            writing-mode: vertical-rl;
+            font-family: 'Yu Gothic', 'Hiragino Kaku Gothic ProN', sans-serif;
+            font-weight: 900;
+            font-size: 13px;
+            letter-spacing: 6px;
+        }
+        .neon-sign {
+            padding: 14px 6px;
+            border-radius: 6px;
+            text-align: center;
+            animation: neon-sign-glow 2.5s infinite alternate;
+        }
+        .neon-sign.pink {
+            border: 2px solid #ff2a8d;
+            color: #fff;
+            background: rgba(255, 42, 141, 0.08);
+            box-shadow: 0 0 15px #ff2a8d, inset 0 0 8px #ff2a8d;
+            text-shadow: 0 0 10px #ff2a8d, 0 0 20px #ff2a8d;
+        }
+        .neon-sign.cyan {
+            border: 2px solid #00f3ff;
+            color: #fff;
+            background: rgba(0, 243, 255, 0.08);
+            box-shadow: 0 0 15px #00f3ff, inset 0 0 8px #00f3ff;
+            text-shadow: 0 0 10px #00f3ff, 0 0 20px #00f3ff;
+            animation-delay: 1.2s;
+        }
+        .neon-sign.yellow {
+            border: 2px solid #ffe600;
+            color: #fff;
+            background: rgba(255, 230, 0, 0.08);
+            box-shadow: 0 0 15px #ffe600, inset 0 0 8px #ffe600;
+            text-shadow: 0 0 10px #ffe600, 0 0 20px #ffe600;
+            animation-delay: 0.7s;
+        }
+        @keyframes neon-sign-glow {
+            0%, 100% { opacity: 1; filter: brightness(1.2); }
+            50% { opacity: 0.85; filter: brightness(0.9); }
+            92% { opacity: 0.3; }
+        }
+
+        /* 日式神社・能乐・市松人形文化展示特写卡片 */
+        .wa-culture-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin: 22px 0 10px;
+        }
+        .wa-culture-card {
+            background: rgba(18, 12, 28, 0.75);
+            border: 1px solid rgba(255, 105, 180, 0.28);
+            border-radius: 14px;
+            padding: 16px;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s cubic-bezier(0.2, 0.8, 0.3, 1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+        }
+        /* 市松纹 (Ichimatsu) 背景微水印 */
+        .wa-culture-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            opacity: 0.04;
+            background-image: linear-gradient(45deg, #fff 25%, transparent 25%, transparent 75%, #fff 75%, #fff),
+                              linear-gradient(45deg, #fff 25%, transparent 25%, transparent 75%, #fff 75%, #fff);
+            background-size: 16px 16px;
+            background-position: 0 0, 8px 8px;
+            pointer-events: none;
+        }
+        .wa-culture-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--neon-pink);
+            box-shadow: 0 0 22px rgba(255, 42, 141, 0.35);
+        }
+        .wa-card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+        .wa-card-icon {
+            font-size: 24px;
+            filter: drop-shadow(0 0 6px var(--neon-pink));
+        }
+        .wa-card-tag {
+            font-size: 9.5px;
+            color: var(--neon-cyan);
+            border: 1px solid rgba(0, 243, 255, 0.4);
+            padding: 2px 6px;
+            border-radius: 4px;
+            letter-spacing: 1px;
+            background: rgba(0, 243, 255, 0.08);
+        }
+        .wa-card-title {
+            font-size: 14.5px;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .wa-card-title span {
+            font-size: 11px;
+            color: rgba(255, 182, 193, 0.7);
+            font-weight: normal;
+        }
+        .wa-card-desc {
+            font-size: 12.5px;
+            color: #cbd5e1;
+            line-height: 1.6;
         }
 
         @keyframes laser-gradient {
@@ -686,7 +886,7 @@
             box-shadow: 0 0 10px #fff, 0 0 20px var(--neon-cyan);
         }
 
-        /* 终端指令风格标题 */
+        /* 终端指令风格标题 - 日式和风双语科技标牌 */
         .intro-title {
             font-size: 20px;
             color: #fff;
@@ -696,15 +896,31 @@
             letter-spacing: 1.5px;
             display: flex;
             align-items: center;
+            justify-content: space-between;
             gap: 10px;
             position: relative;
             border-left: 4px solid var(--neon-cyan);
             box-shadow: -6px 0 15px -3px var(--neon-cyan);
         }
+        .intro-title .title-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
         .intro-title .prefix {
             color: var(--neon-pink);
             font-weight: bold;
             font-size: 18px;
+        }
+        .intro-title .title-jp {
+            font-size: 11px;
+            color: rgba(255, 182, 193, 0.7);
+            font-weight: normal;
+            letter-spacing: 2px;
+            border: 1px solid rgba(255, 105, 180, 0.3);
+            padding: 2px 8px;
+            border-radius: 4px;
+            background: rgba(255, 105, 180, 0.05);
         }
 
         /* 核心信息面板 */
@@ -1180,7 +1396,15 @@
     <div class="cyber-wa-torii">
         <div class="torii-icon">⛩️</div>
         <div class="wa-kamon-stamp">電脳桜花</div>
+        <div class="wa-tanzaku">電脳幽幻神域</div>
         <span>CYBER_EDO_NET</span>
+    </div>
+
+    <!-- 左侧日式御守神符挂件 -->
+    <div class="cyber-wa-omamori">
+        <div class="omamori-tag">💮 恋愛成就 // BUG無敵</div>
+        <div class="omamori-tag">🛡️ 御守・有馬加奈</div>
+        <span>AMULET_PROTECT</span>
     </div>
 
     <!-- 自定义高能准星光标 -->
@@ -1233,15 +1457,21 @@
             <div class="divider"></div>
 
             <!-- 关于我 -->
-            <h3 class="intro-title"><span class="prefix">#</span>关于我</h3>
+            <h3 class="intro-title">
+                <div class="title-left"><span class="prefix">#</span>关于我</div>
+                <span class="title-jp">私について // PROFILE</span>
+            </h3>
             <div class="intro-text-card">
                 <p class="intro-text">
-                    我是有马加奈本人👍👍👍
+                    人类拥有感情是一件极其可怕的事情
                 </p>
             </div>
 
             <!-- 兴趣爱好 -->
-            <h3 class="intro-title"><span class="prefix">#</span>兴趣爱好</h3>
+            <h3 class="intro-title">
+                <div class="title-left"><span class="prefix">#</span>兴趣爱好</div>
+                <span class="title-jp">趣味・関心 // HOBBIES</span>
+            </h3>
             <div class="tag-wrap">
                 <span class="tag">游戏</span>
                 <span class="tag">编程</span>
@@ -1254,7 +1484,10 @@
             </div>
 
             <!-- 座右铭 -->
-            <h3 class="intro-title"><span class="prefix">#</span>座右铭</h3>
+            <h3 class="intro-title">
+                <div class="title-left"><span class="prefix">#</span>座右铭</div>
+                <span class="title-jp">座右の銘 // MOTTO</span>
+            </h3>
             <div class="msg-box">
                 <div class="terminal-header">
                     <div class="terminal-dots">
@@ -1266,13 +1499,16 @@
                     <span>ENCODING: UTF-8</span>
                 </div>
                 <p class="msg-text">
-                    世界就是畜生
+                    极致思考的边缘就是疯子
                 </p>
             </div>
 
             <!-- 我的网站 板块 -->
             <div class="site-section">
-                <h3 class="intro-title"><span class="prefix">#</span>我的网站</h3>
+                <h3 class="intro-title">
+                    <div class="title-left"><span class="prefix">#</span>我的网站</div>
+                    <span class="title-jp">電脳結界 // WEBSITES</span>
+                </h3>
                 <div class="site-grid">
                     <!-- 卡片 1 -->
                     <div class="site-card">
@@ -1870,20 +2106,20 @@
         window.addEventListener('resize', resizeSakura);
 
         const petals = [];
-        const petalCount = 38;
+        const petalCount = 75;
 
         for (let i = 0; i < petalCount; i++) {
             petals.push({
                 x: Math.random() * window.innerWidth,
                 y: Math.random() * window.innerHeight,
-                size: Math.random() * 7 + 6,
-                speedX: Math.random() * 1.5 - 0.2,
-                speedY: Math.random() * 1.2 + 0.8,
+                size: Math.random() * 8 + 6,
+                speedX: Math.random() * 2.2 - 0.4,
+                speedY: Math.random() * 1.6 + 0.9,
                 rotation: Math.random() * Math.PI * 2,
-                rotSpeed: (Math.random() - 0.5) * 0.03,
+                rotSpeed: (Math.random() - 0.5) * 0.04,
                 flip: Math.random(),
-                flipSpeed: Math.random() * 0.03 + 0.01,
-                color: Math.random() > 0.3 ? 'rgba(255, 183, 197, 0.65)' : 'rgba(255, 105, 180, 0.75)'
+                flipSpeed: Math.random() * 0.04 + 0.015,
+                color: Math.random() > 0.4 ? 'rgba(255, 183, 197, 0.75)' : (Math.random() > 0.5 ? 'rgba(255, 105, 180, 0.85)' : 'rgba(255, 220, 230, 0.8)')
             });
         }
 
