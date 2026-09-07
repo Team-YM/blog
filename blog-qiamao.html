@@ -50,28 +50,86 @@
             justify-content: center;
             transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
             user-select: none;
+            overflow: hidden;
         }
+
+        /* 黑客/BIOS 自检终端输出流窗口 */
+        .bios-console-overlay {
+            position: absolute;
+            top: 24px;
+            left: 28px;
+            font-family: 'Consolas', monospace;
+            font-size: 11.5px;
+            line-height: 1.5;
+            color: rgba(0, 243, 255, 0.7);
+            text-shadow: 0 0 5px rgba(0, 243, 255, 0.5);
+            pointer-events: none;
+            max-width: 480px;
+            text-align: left;
+            z-index: 5;
+        }
+        .bios-line {
+            opacity: 0;
+            transform: translateX(-10px);
+            animation: bios-fade-in 0.25s forwards ease-out;
+        }
+        .bios-line.ok span {
+            color: var(--neon-lime);
+            font-weight: bold;
+        }
+        .bios-line.warn span {
+            color: var(--neon-yellow);
+            font-weight: bold;
+        }
+        @keyframes bios-fade-in {
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        /* 顶部/底部开机科技雷达刻度线 */
+        .boot-corner-decor {
+            position: absolute;
+            font-family: monospace;
+            font-size: 10px;
+            color: rgba(255, 255, 255, 0.2);
+            letter-spacing: 2px;
+            pointer-events: none;
+        }
+        .boot-corner-decor.top-right { top: 24px; right: 28px; text-align: right; }
+        .boot-corner-decor.bottom-left { bottom: 24px; left: 28px; }
 
         /* Win11 四块蓝窗标志 */
         .win11-logo-wrap {
             position: relative;
             display: grid;
-            grid-template-columns: repeat(2, 42px);
-            grid-template-rows: repeat(2, 42px);
-            gap: 6px;
-            margin-bottom: 58px;
-            filter: drop-shadow(0 0 25px rgba(0, 164, 239, 0.75));
+            grid-template-columns: repeat(2, 44px);
+            grid-template-rows: repeat(2, 44px);
+            gap: 7px;
+            margin-bottom: 48px;
+            filter: drop-shadow(0 0 28px rgba(0, 164, 239, 0.8));
             animation: win-logo-pulse 2.4s ease-in-out infinite alternate;
         }
 
         @keyframes win-logo-pulse {
-            0% { transform: scale(0.96); filter: drop-shadow(0 0 15px rgba(0, 164, 239, 0.5)); }
-            100% { transform: scale(1.04); filter: drop-shadow(0 0 35px rgba(0, 243, 255, 0.95)); }
+            0% { transform: scale(0.96); filter: drop-shadow(0 0 16px rgba(0, 164, 239, 0.5)); }
+            100% { transform: scale(1.05); filter: drop-shadow(0 0 38px rgba(0, 243, 255, 0.98)); }
         }
 
         .win-pane {
             background: linear-gradient(135deg, #00adef, #0078d4);
             border-radius: 3px;
+            position: relative;
+            overflow: hidden;
+        }
+        .win-pane::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transform: translateX(-100%);
+            animation: pane-shine 3.5s infinite;
+        }
+        @keyframes pane-shine {
+            30%, 100% { transform: translateX(100%); }
         }
 
         /* Win11 原生风格圆环流动加载转圈动画 */
@@ -116,22 +174,54 @@
         }
 
         .boot-title {
-            margin-top: 36px;
-            font-size: 19px;
-            font-weight: 400;
+            margin-top: 30px;
+            font-size: 21px;
+            font-weight: 500;
             color: #f1f5f9;
-            letter-spacing: 2.5px;
+            letter-spacing: 3px;
             display: flex;
             align-items: center;
             gap: 10px;
+            text-shadow: 0 0 10px rgba(0, 243, 255, 0.5);
         }
 
         .boot-sub-status {
             margin-top: 10px;
             font-size: 11.5px;
             color: #38bdf8;
-            letter-spacing: 1.5px;
+            letter-spacing: 1.8px;
             font-family: 'Consolas', monospace;
+        }
+
+        /* 极客进度条容器与百分比 */
+        .boot-progress-wrap {
+            margin-top: 22px;
+            width: 280px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+        }
+        .boot-progress-bar {
+            width: 100%;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+        }
+        .boot-progress-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #0078d4, #00f3ff, #ff2a8d);
+            box-shadow: 0 0 10px #00f3ff;
+            transition: width 0.3s ease-out;
+        }
+        .boot-progress-num {
+            font-family: monospace;
+            font-size: 10px;
+            color: rgba(255, 255, 255, 0.5);
+            letter-spacing: 1.5px;
         }
 
         /* 快捷跳过开机按钮 */
@@ -900,6 +990,20 @@
 <body>
     <!-- 1. 仿 Windows 11 开机启动全屏加载特效遮罩 -->
     <div id="win11-boot-screen">
+        <!-- 极客 BIOS / 内核诊断自检代码流 -->
+        <div class="bios-console-overlay" id="bios-console">
+            <!-- 由 JS 动态注入高逼格日志 -->
+        </div>
+
+        <div class="boot-corner-decor top-right">
+            <span>SECURE_BOOT: ENABLED</span><br>
+            <span>TPM 2.0: ACTIVE</span>
+        </div>
+        <div class="boot-corner-decor bottom-left">
+            <span>SYS_ARCH: X86_64_NEURAL</span><br>
+            <span>BUILD: 26100.GE_RELEASE</span>
+        </div>
+
         <!-- 蓝窗 Logo -->
         <div class="win11-logo-wrap">
             <div class="win-pane"></div>
@@ -921,6 +1025,14 @@
             <span id="boot-system-text">qiamao OS</span>
         </div>
         <div class="boot-sub-status" id="boot-status-text">INITIALIZING QUANTUM KERNEL...</div>
+
+        <!-- 进度条 -->
+        <div class="boot-progress-wrap">
+            <div class="boot-progress-bar">
+                <div class="boot-progress-fill" id="boot-progress-fill"></div>
+            </div>
+            <div class="boot-progress-num" id="boot-progress-num">0%</div>
+        </div>
 
         <button class="skip-boot-btn" onclick="finishBoot(true)">ESC / CLICK TO SKIP</button>
     </div>
@@ -1109,12 +1221,52 @@
         const bootScreen = document.getElementById('win11-boot-screen');
         const statusText = document.getElementById('boot-status-text');
         const bootTitle = document.getElementById('boot-system-text');
+        const biosConsole = document.getElementById('bios-console');
+        const progFill = document.getElementById('boot-progress-fill');
+        const progNum = document.getElementById('boot-progress-num');
+
+        // 左上角装高手极客自检 BIOS 代码流
+        const biosLogs = [
+            { text: ">> UEFI FIRMWARE INIT: OK", cls: "ok", delay: 100 },
+            { text: ">> CPU: QUANTUM TENSOR CORE @ 8.20 GHz", cls: "", delay: 350 },
+            { text: ">> TPM 2.0 PCR ENCRYPTION VALIDATED", cls: "ok", delay: 650 },
+            { text: ">> ALLOCATING 64GB DDR5 ECC VIRTUAL HEAP...", cls: "", delay: 950 },
+            { text: ">> [KERNEL] PCI-E LANE 0x00F83: ATTACHED", cls: "", delay: 1300 },
+            { text: ">> BYPASSING FIREWALL... STATUS [GRANTED]", cls: "warn", delay: 1700 },
+            { text: ">> DWM COMPOSITOR: HARDWARE ACCEL ON", cls: "ok", delay: 2100 },
+            { text: ">> LAUNCHING SHELL: QIAMAO NEURAL DESKTOP", cls: "ok", delay: 2500 }
+        ];
+
+        biosLogs.forEach(log => {
+            setTimeout(() => {
+                if (hasBooted || !biosConsole) return;
+                const line = document.createElement('div');
+                line.className = 'bios-line ' + log.cls;
+                line.innerHTML = log.cls ? `<span>${log.text}</span>` : log.text;
+                biosConsole.appendChild(line);
+            }, log.delay);
+        });
+
+        // 真实百分比进度推进
+        let progress = 0;
+        const progInterval = setInterval(() => {
+            if (hasBooted) {
+                clearInterval(progInterval);
+                return;
+            }
+            if (progress < 99) {
+                progress += Math.floor(Math.random() * 5 + 1);
+                if (progress > 99) progress = 99;
+                if (progFill) progFill.style.width = progress + '%';
+                if (progNum) progNum.innerText = progress + '%';
+            }
+        }, 110);
 
         const bootSequence = [
             { time: 600, status: "LOADING SYSTEM DRIVERS..." },
-            { time: 1200, status: "MOUNTING NEURAL NETWORK PROTOCOLS..." },
-            { time: 1800, status: "CHECKING INTEGRITY OF QIAMAO CORE..." },
-            { time: 2400, status: "STARTING DESKTOP ENVIRONMENT...", title: "欢迎 Welcome" },
+            { time: 1300, status: "MOUNTING NEURAL NETWORK PROTOCOLS..." },
+            { time: 2000, status: "CHECKING INTEGRITY OF QIAMAO CORE..." },
+            { time: 2700, status: "STARTING DESKTOP ENVIRONMENT...", title: "欢迎 Welcome" },
         ];
 
         bootSequence.forEach(step => {
@@ -1127,7 +1279,7 @@
 
         setTimeout(() => {
             finishBoot(false);
-        }, 3200);
+        }, 3600);
 
         // 按 ESC 键可立刻跳过开机
         window.addEventListener('keydown', (e) => {
@@ -1137,6 +1289,9 @@
         function finishBoot(isManual) {
             if (hasBooted) return;
             hasBooted = true;
+            clearInterval(progInterval);
+            if (progFill) progFill.style.width = '100%';
+            if (progNum) progNum.innerText = '100%';
             bootScreen.style.opacity = '0';
             bootScreen.style.transform = 'scale(1.08)';
             setTimeout(() => {
