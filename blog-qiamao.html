@@ -304,6 +304,120 @@
             z-index: 3;
         }
 
+        /* 新增：日式风铃摇曳挂件 (Edo Furin) */
+        .cyber-wa-furin {
+            position: fixed;
+            top: 60px;
+            right: 170px;
+            z-index: 92;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            pointer-events: none;
+            animation: furin-sway 4.5s ease-in-out infinite alternate;
+            transform-origin: top center;
+        }
+        @keyframes furin-sway {
+            0% { transform: rotate(-7deg); }
+            50% { transform: rotate(5deg); }
+            100% { transform: rotate(-9deg); }
+        }
+        .furin-bell {
+            width: 32px;
+            height: 28px;
+            background: radial-gradient(circle at 35% 35%, rgba(255, 255, 255, 0.85), rgba(0, 243, 255, 0.5) 40%, rgba(255, 42, 141, 0.4) 85%);
+            border: 1.5px solid rgba(255, 255, 255, 0.8);
+            border-radius: 16px 16px 6px 6px;
+            box-shadow: 0 0 16px rgba(0, 243, 255, 0.7), inset 0 0 8px rgba(255, 255, 255, 0.9);
+            position: relative;
+        }
+        .furin-bell::after {
+            content: '🌸';
+            position: absolute;
+            font-size: 13px;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0.85;
+        }
+        .furin-string {
+            width: 1.5px;
+            height: 22px;
+            background: linear-gradient(to bottom, #fff, rgba(255, 105, 180, 0.8));
+        }
+        .furin-strip {
+            writing-mode: vertical-rl;
+            padding: 8px 3px;
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 182, 193, 0.7);
+            color: #ffe4e6;
+            font-size: 9px;
+            letter-spacing: 2px;
+            border-radius: 2px;
+            box-shadow: 0 0 10px rgba(255, 105, 180, 0.5);
+            text-shadow: 0 0 6px #ff2a8d;
+        }
+
+        /* 新增：日式神社狐狸面具 (Kitsune Mask) 徽章 */
+        .cyber-wa-foxmask {
+            position: fixed;
+            left: 24px;
+            top: 24%;
+            z-index: 92;
+            pointer-events: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            filter: drop-shadow(0 0 14px rgba(255, 42, 141, 0.7));
+            animation: fox-float 3.8s ease-in-out infinite alternate;
+        }
+        @keyframes fox-float {
+            0% { transform: translateY(-5px) rotate(-3deg); }
+            100% { transform: translateY(5px) rotate(3deg); }
+        }
+        .foxmask-face {
+            font-size: 34px;
+            line-height: 1;
+        }
+        .foxmask-badge {
+            font-size: 9px;
+            color: #ffd700;
+            border: 1px solid #ffd700;
+            background: rgba(30, 0, 10, 0.85);
+            padding: 2px 6px;
+            border-radius: 10px;
+            letter-spacing: 2px;
+            box-shadow: 0 0 8px rgba(255, 215, 0, 0.6);
+        }
+
+        /* 新增：阴阳五行晴明桔梗太极印 (Onmyoji Seal) */
+        .cyber-onmyo-seal {
+            position: fixed;
+            bottom: 25px;
+            left: 25px;
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            border: 2px dashed rgba(255, 215, 0, 0.65);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 91;
+            pointer-events: none;
+            animation: rotate-ring 20s linear infinite;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.35);
+            background: radial-gradient(circle, rgba(255, 42, 141, 0.1), transparent 70%);
+        }
+        .cyber-onmyo-seal::after {
+            content: '☯';
+            font-size: 28px;
+            color: #ffd700;
+            text-shadow: 0 0 12px #ffd700;
+            animation: rotate-ring-reverse 10s linear infinite;
+        }
+
         /* 侧边日式鸟居 & 家纹和风微光挂件 */
         .cyber-wa-torii {
             position: fixed;
@@ -414,6 +528,15 @@
             color: #a5f3fc;
             box-shadow: 0 0 12px rgba(0, 243, 255, 0.3);
             text-shadow: 0 0 6px rgba(0, 243, 255, 0.6);
+        }
+        .oni-seal-tag {
+            border: 1px solid rgba(255, 30, 30, 0.6);
+            background: rgba(45, 0, 10, 0.92);
+            padding: 11px 5px;
+            border-radius: 4px;
+            color: #ff4d4d;
+            box-shadow: 0 0 14px rgba(255, 30, 30, 0.5);
+            text-shadow: 0 0 8px #ff1a1a;
         }
 
         /* 新宿/秋叶原 垂直霓虹招牌灯带 (歌舞伎町极客风) */
@@ -547,8 +670,8 @@
             100% { background-position: 300% 0%; }
         }
 
-        /* 画布背景：高清代码雨 + 神经网络电弧粒子 */
-        #bg-canvas, #matrix-canvas {
+        /* 画布背景：高清代码雨 + 神经网络电弧粒子 + 鬼火灵火 Canvas */
+        #bg-canvas, #matrix-canvas, #onibi-canvas {
             position: fixed;
             top: 0;
             left: 0;
@@ -562,6 +685,10 @@
         }
         #bg-canvas {
             z-index: 2;
+        }
+        #onibi-canvas {
+            z-index: 3;
+            mix-blend-mode: screen;
         }
 
         /* 鼠标高能准星雷达跟随 */
@@ -1563,10 +1690,10 @@
     <!-- 顶部激光滚动条 -->
     <div id="cyber-scroll-bar"></div>
 
-    <!-- 高清动态背景：矩阵雨与粒子网状星云画布 -->
+    <!-- 高清动态背景：矩阵雨、粒子网状星云、鬼神鬼火层与落樱独立层 -->
     <canvas id="matrix-canvas"></canvas>
     <canvas id="bg-canvas"></canvas>
-    <!-- 日式樱花飘落独立层 -->
+    <canvas id="onibi-canvas"></canvas>
     <canvas id="sakura-canvas"></canvas>
 
     <!-- 侧边极客悬浮标牌 -->
@@ -1595,8 +1722,29 @@
         <div class="omamori-tag">🛡️ 御守・有馬加奈</div>
         <!-- 市松人形守护神符 -->
         <div class="ichimatsu-doll-tag">🎎 市松人形・霊魂</div>
+        <!-- 鬼神封印急急如律令符 -->
+        <div class="oni-seal-tag">👹 鬼神調伏・急急如律令</div>
+        <!-- 阴阳寮急急如律令五芒星神符 -->
+        <div class="omamori-tag" style="border-color: #00f3ff; color: #a5f3fc; background: rgba(0,243,255,0.08);">🔯 陰陽道・五行結界</div>
+        <div class="omamori-tag" style="border-color: #ff2a8d; color: #fbcfe8; background: rgba(255,42,141,0.08);">🎋 諸願成就・千本鳥居</div>
         <span>AMULET_PROTECT</span>
     </div>
+
+    <!-- 摇曳日式风铃挂件 -->
+    <div class="cyber-wa-furin">
+        <div class="furin-bell"></div>
+        <div class="furin-string"></div>
+        <div class="furin-strip">風鈴 // 清心幽玄</div>
+    </div>
+
+    <!-- 稻荷神社白狐神面挂件 -->
+    <div class="cyber-wa-foxmask">
+        <div class="foxmask-face">🦊</div>
+        <div class="foxmask-badge">稲荷神面</div>
+    </div>
+
+    <!-- 阴阳五行流光法阵印 -->
+    <div class="cyber-onmyo-seal"></div>
 
     <!-- 新宿歌舞伎町 / 涩谷极客赛博霓虹招牌灯带 -->
     <div class="tokyo-neon-strip">
@@ -1827,14 +1975,59 @@
                         <div class="wa-card-title">付喪神絵 <span>Tsukumogami</span></div>
                         <p class="wa-card-desc">器历百年化而为妖。万物皆有灵性，自《今昔物语》《百物语》流淌而出的怪异浪漫与因果。</p>
                     </div>
-                    <!-- 6. 琳派金碧屏风与和柄 -->
+                    <!-- 6. 阴阳师与晴明桔梗印 -->
                     <div class="wa-culture-card">
                         <div class="wa-card-header">
-                            <span class="wa-card-icon">🪭</span>
-                            <span class="wa-card-tag">RIMPA // 琳派</span>
+                            <span class="wa-card-icon">☯️</span>
+                            <span class="wa-card-tag">ONMYO // 陰陽師</span>
                         </div>
-                        <div class="wa-card-title">金碧屏風 <span>Gold Rimpa</span></div>
-                        <p class="wa-card-desc">尾形光琳之风神雷神与燕子花，青海波与麻之叶金箔相映，成就平安与江户至臻和柄美学。</p>
+                        <div class="wa-card-title">陰陽五行 <span>Abe no Seimei</span></div>
+                        <p class="wa-card-desc">晴明桔梗五芒星，天地水火木金土。掌管式神差遣、驱邪退治，以阴阳律令统摄现世与常世之界。</p>
+                    </div>
+                    <!-- 7. 日式鬼神・酒吞童子与大江山鬼王 -->
+                    <div class="wa-culture-card">
+                        <div class="wa-card-header">
+                            <span class="wa-card-icon">👹</span>
+                            <span class="wa-card-tag">ONI // 鬼王</span>
+                        </div>
+                        <div class="wa-card-title">酒呑童子 <span>Shuten-dōji</span></div>
+                        <p class="wa-card-desc">丹波大江山之鬼神总领，头生赤角，狂饮神便鬼毒酒。代表古和风暴烈野性与禁忌力量之极致。</p>
+                    </div>
+                    <!-- 8. 日式神道教最高神祇・八咫乌与天照太阳神 -->
+                    <div class="wa-culture-card">
+                        <div class="wa-card-header">
+                            <span class="wa-card-icon">🦅</span>
+                            <span class="wa-card-tag">KAMI // 神使</span>
+                        </div>
+                        <div class="wa-card-title">八咫烏 <span>Yatagarasu</span></div>
+                        <p class="wa-card-desc">三足神乌，天照大御神之神使。穿行于高天原与幽冥苇原之间，以赤金神火为迷失之人指引神圣之途。</p>
+                    </div>
+                    <!-- 9. 伏见稻荷・千本鸟居与白狐灵使 -->
+                    <div class="wa-culture-card">
+                        <div class="wa-card-header">
+                            <span class="wa-card-icon">🦊</span>
+                            <span class="wa-card-tag">INARI // 稲荷神社</span>
+                        </div>
+                        <div class="wa-card-title">千本鳥居 <span>Senbon Torii</span></div>
+                        <p class="wa-card-desc">朱红列柱绵延重峦，白狐叼穗静默伫立。万本结界构筑通向神明之虚数回廊。</p>
+                    </div>
+                    <!-- 10. 名刀铸造与剑道魂 -->
+                    <div class="wa-culture-card">
+                        <div class="wa-card-header">
+                            <span class="wa-card-icon">⚔️</span>
+                            <span class="wa-card-tag">KATANA // 銘刀百錬</span>
+                        </div>
+                        <div class="wa-card-title">妖刀村正 <span>Muramasa Blade</span></div>
+                        <p class="wa-card-desc">玉钢千锤百炼，刃文如波涛霜雪。斩破虚实幻障，锋芒淬火映照武士之义理与幽魂。</p>
+                    </div>
+                    <!-- 11. 枯山水・禅宗侘寂 (Wabi-Sabi) -->
+                    <div class="wa-culture-card">
+                        <div class="wa-card-header">
+                            <span class="wa-card-icon">🪨</span>
+                            <span class="wa-card-tag">ZEN // 侘び寂び</span>
+                        </div>
+                        <div class="wa-card-title">枯山水庭 <span>Karesansui</span></div>
+                        <p class="wa-card-desc">白砂划波为瀚海，立石为蓬莱仙山。无水亦见千里汪洋，于极简静谧中悟入宇宙实相。</p>
                     </div>
                 </div>
             </div>
@@ -2401,7 +2594,7 @@
         window.addEventListener('resize', resizeSakura);
 
         const petals = [];
-        const petalCount = 75;
+        const petalCount = 120; // 樱花数量从75增至120片，风吹落樱效果拉满
 
         for (let i = 0; i < petalCount; i++) {
             petals.push({
@@ -2455,11 +2648,87 @@
             }
         }
 
+        // ========== 8.5 日式鬼神・鬼火与狐火 (Onibi / Kitsunebi) 灵动粒子系统 ==========
+        const onibiCanvas = document.getElementById('onibi-canvas');
+        const oCtx = onibiCanvas.getContext('2d');
+
+        function resizeOnibi() {
+            onibiCanvas.width = window.innerWidth;
+            onibiCanvas.height = window.innerHeight;
+        }
+        resizeOnibi();
+        window.addEventListener('resize', resizeOnibi);
+
+        const onibiFlames = [];
+        const onibiCount = 14;
+
+        for (let i = 0; i < onibiCount; i++) {
+            onibiFlames.push({
+                x: Math.random() * window.innerWidth,
+                y: Math.random() * window.innerHeight,
+                radius: Math.random() * 18 + 12,
+                vx: (Math.random() - 0.5) * 0.7,
+                vy: -(Math.random() * 0.8 + 0.3),
+                alpha: Math.random() * 0.45 + 0.25,
+                pulse: Math.random() * Math.PI * 2,
+                pulseSpeed: Math.random() * 0.03 + 0.015,
+                colorType: Math.random() > 0.45 ? 'cyan' : (Math.random() > 0.5 ? 'purple' : 'gold')
+            });
+        }
+
+        function drawOnibi() {
+            oCtx.clearRect(0, 0, onibiCanvas.width, onibiCanvas.height);
+
+            for (let i = 0; i < onibiFlames.length; i++) {
+                const f = onibiFlames[i];
+                f.x += f.vx + Math.sin(f.pulse) * 0.6;
+                f.y += f.vy;
+                f.pulse += f.pulseSpeed;
+
+                // 飘出顶部则在底部重生
+                if (f.y < -50) {
+                    f.y = onibiCanvas.height + 40;
+                    f.x = Math.random() * onibiCanvas.width;
+                }
+                if (f.x < -40) f.x = onibiCanvas.width + 30;
+                if (f.x > onibiCanvas.width + 40) f.x = -30;
+
+                const currentRadius = f.radius + Math.sin(f.pulse * 1.5) * 4;
+                const currentAlpha = Math.max(0.1, f.alpha + Math.sin(f.pulse) * 0.15);
+
+                const grad = oCtx.createRadialGradient(f.x, f.y, 0, f.x, f.y, currentRadius);
+                if (f.colorType === 'cyan') {
+                    grad.addColorStop(0, `rgba(180, 255, 255, ${currentAlpha})`);
+                    grad.addColorStop(0.3, `rgba(0, 243, 255, ${currentAlpha * 0.8})`);
+                    grad.addColorStop(0.7, `rgba(0, 110, 255, ${currentAlpha * 0.3})`);
+                    grad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+                } else if (f.colorType === 'purple') {
+                    grad.addColorStop(0, `rgba(255, 200, 255, ${currentAlpha})`);
+                    grad.addColorStop(0.3, `rgba(218, 50, 255, ${currentAlpha * 0.8})`);
+                    grad.addColorStop(0.7, `rgba(120, 0, 200, ${currentAlpha * 0.3})`);
+                    grad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+                } else {
+                    grad.addColorStop(0, `rgba(255, 255, 210, ${currentAlpha})`);
+                    grad.addColorStop(0.3, `rgba(255, 180, 0, ${currentAlpha * 0.8})`);
+                    grad.addColorStop(0.7, `rgba(255, 60, 0, ${currentAlpha * 0.25})`);
+                    grad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+                }
+
+                oCtx.save();
+                oCtx.beginPath();
+                oCtx.arc(f.x, f.y, currentRadius, 0, Math.PI * 2);
+                oCtx.fillStyle = grad;
+                oCtx.fill();
+                oCtx.restore();
+            }
+        }
+
         // 统一循环渲染
         function mainLoop() {
             drawMatrix();
             drawParticles();
             drawSakura();
+            drawOnibi();
             try {
                 updateThreeBody();
             } catch (err) {
